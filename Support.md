@@ -1,0 +1,56 @@
+──(root㉿kali)-[/home/kali]
+└─# smbclient -L 10.10.11.227 -N
+do_connect: Connection to 10.10.11.227 failed (Error NT_STATUS_HOST_UNREACHABLE)
+                                                                                                                                 
+┌──(root㉿kali)-[/home/kali]
+└─# smbclient -L 10.10.11.174 -N
+
+	Sharename       Type      Comment
+	---------       ----      -------
+	ADMIN$          Disk      Remote Admin
+	C$              Disk      Default share
+	IPC$            IPC       Remote IPC
+	NETLOGON        Disk      Logon server share 
+	support-tools   Disk      support staff tools
+	SYSVOL          Disk      Logon server share 
+Reconnecting with SMB1 for workgroup listing.
+do_connect: Connection to 10.10.11.174 failed (Error NT_STATUS_RESOURCE_NAME_NOT_FOUND)
+Unable to connect with SMB1 -- no workgroup available
+
+  
+┌──(root㉿kali)-[/home/kali]
+└─# smbclient //10.10.11.174/support-tools
+Password for [WORKGROUP\kali]:
+Try "help" to get a list of possible commands.
+smb: \> ls
+  .                                   D        0  Wed Jul 20 13:01:06 2022
+  ..                                  D        0  Sat May 28 07:18:25 2022
+  7-ZipPortable_21.07.paf.exe         A  2880728  Sat May 28 07:19:19 2022
+  npp.8.4.1.portable.x64.zip          A  5439245  Sat May 28 07:19:55 2022
+  putty.exe                           A  1273576  Sat May 28 07:20:06 2022
+  SysinternalsSuite.zip               A 48102161  Sat May 28 07:19:31 2022
+  UserInfo.exe.zip                    A   277499  Wed Jul 20 13:01:07 2022
+  windirstat1_1_2_setup.exe           A    79171  Sat May 28 07:20:17 2022
+  WiresharkPortable64_3.6.5.paf.exe      A 44398000  Sat May 28 07:19:43 2022
+
+		4026367 blocks of size 4096. 967496 blocks available
+                                                           
+#download suspicios file   
+smb: \> get UserInfo.exe.zip  
+
+#create sperate folder for extaract
+──(root㉿kali)-[/home/kali]
+└─# unzip UserInfo.exe.zip 
+Archive:  UserInfo.exe.zip
+  inflating: UserInfo.exe            
+  inflating: CommandLineParser.dll   
+  inflating: Microsoft.Bcl.AsyncInterfaces.dll  
+  inflating: Microsoft.Extensions.DependencyInjection.Abstractions.dll  
+  inflating: Microsoft.Extensions.DependencyInjection.dll  
+  inflating: Microsoft.Extensions.Logging.Abstractions.dll  
+  inflating: System.Buffers.dll      
+  inflating: System.Memory.dll       
+  inflating: System.Numerics.Vectors.dll  
+  inflating: System.Runtime.CompilerServices.Unsafe.dll  
+  inflating: System.Threading.Tasks.Extensions.dll  
+  inflating: UserInfo.exe.config 
