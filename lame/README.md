@@ -80,7 +80,7 @@ Result: ✅ Success
 - Always upgrade your shell to TTY for better usability.
 - Replace LHOST with your actual tun0 IP before running reverse shell exploits.
 
-Author: YourName  
+Author: Srikanth A  
 Platform: Hack The Box  
 Machine: Lame  
 Level: Easy
