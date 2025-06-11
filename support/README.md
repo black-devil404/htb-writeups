@@ -55,3 +55,15 @@ Archive:  UserInfo.exe.zip
   inflating: System.Runtime.CompilerServices.Unsafe.dll  
   inflating: System.Threading.Tasks.Extensions.dll  
   inflating: UserInfo.exe.config 
+
+#move this UserInfo.exe to windows machine
+
+#In windows machine
+
+#download dnspy from >> https://github.com/dnSpy/dnSpy/releases
+#open UserInfo.exe in dnspy
+#anylze for any ldap passwords
+#we got encryted password along with encryption techniq
+#based on encryted techniq create script python script to decrypt password
+#
+
