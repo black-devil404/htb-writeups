@@ -111,12 +111,7 @@ python3 -c 'import pty; pty.spawn("/bin/bash")'
 
 ---
 
-## Final Notes
 
-- The FTP backdoor exploit didn’t work, but it was worth a try.
-- smbclient was helpful for identifying the vulnerable Samba version.
-- Listener is important — Metasploit may not show an open session.
-- Upgrading to a proper shell using Python makes interaction easier.
 
 
 Author: Srikanth A  
