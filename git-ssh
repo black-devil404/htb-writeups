@@ -1,0 +1,28 @@
+107  ssh-keygen
+  108  cat .ssh/id_ed25519.pub 
+  109  ssh -T git@github.com
+  110  cd htb-writeups/
+  111  cd
+  112  ll
+  113  rm -rvf htb-writeups/
+  114  ll
+  115  git@github.com:black-devil404/htb-writeups.git
+  116  git clone git@github.com:black-devil404/htb-writeups.git
+  117  ll
+  118  cd htb-writeups/
+  119  ll
+  120  mkdir support
+  121  git status -s
+  122  cd support/
+  123  touch test
+  124  cd ..
+  125  git status  -s
+  126  git add support/
+  127  git status -s
+  128  git commit -m "add support dir"
+  129  git config --global user.email "srikanthallimuthu@gmail.com"
+  130  git config --global user.name "Srikanth A"
+  131  git commit -m "add support dir"
+  132  git push origin main 
+  133  history
+
