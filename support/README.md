@@ -1,3 +1,4 @@
+**Lame** 
 ──(root㉿kali)-[/home/kali]
 └─# smbclient -L 10.10.11.227 -N
 do_connect: Connection to 10.10.11.227 failed (Error NT_STATUS_HOST_UNREACHABLE)
