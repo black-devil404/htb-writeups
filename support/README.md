@@ -65,5 +65,10 @@ Archive:  UserInfo.exe.zip
 #anylze for any ldap passwords
 #we got encryted password along with encryption techniq
 #based on encryted techniq create script python script to decrypt password
-#
 
+┌──(root㉿kali)-[/home/kali/htb-writeups]
+└─# ldapsearch -x -H ldap://10.10.11.174 \
+  -D 'support\ldap' -w 'nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz' \
+  -b 'DC=support,DC=htb'
+
+#save output in saprate file for laters anylisis
