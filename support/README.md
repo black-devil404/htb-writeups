@@ -94,4 +94,29 @@ download 20250617085423_BloodHound.zip
 
 #upload 20250617085423_BloodHound.zip
 #then anylize the data
-#got DC.SUPPORT.HTB in bloodhound (analize further)
+
+
+### 🎯 Goal
+Identify if `support@support.htb` has privileges to escalate to Domain Admin.
+
+
+### 🧠 Step 3: Start BloodHound Community Edition
+Run:
+bloodhound   
+GUI opens at: http://localhost (port 80)  
+Login using Admin credentials #set the password if not set
+
+### 📁 Step 4: Upload bloodhound ZIP
+In BloodHound UI:
+-   "Upload Data"
+- Select the 20250617085423_BloodHound.zip
+- Wait for "Upload Complete"
+
+### 🔍 Step 5: Run Built-in Query
+Go to "Mangments"  
+#choose dc.support.htb , open explorer
+annalize the persmisson , 
+we found that  support user is the member of shared support accont also shared support group as Genric all permmisson on DC.SUPPORT.HTB
+
+
+
